@@ -5,23 +5,29 @@ const menuCarritoIcon = document.querySelector('.navbar-shopping-cart');
 const mobileMenu = document.querySelector('.mobile-menu');
 const shoppingCartContainer = document.querySelector('#shopping-cart-container');
 const cardsContainer = document.querySelector('.cards-container')
+const productDetailContainer = document.querySelector('#product-detail');
+const productDetailCloseIcon = document.querySelector('.product-detail-close');
 
 menuEmail.addEventListener('click', toggleDesktopMenu);
 menuHamIcon.addEventListener('click', toggleMobileMenu);
 menuCarritoIcon.addEventListener('click', toggleCarritoShoppingCartContainer)
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 
 function toggleDesktopMenu(){
     closeIfOpen(shoppingCartContainer);
+    closeIfOpen(productDetailContainer);
     desktopMenu.classList.toggle('inactive');
 }
 
 function toggleMobileMenu(){
     closeIfOpen(shoppingCartContainer);
+    closeIfOpen(productDetailContainer);
     mobileMenu.classList.toggle('inactive');
 }
 function toggleCarritoShoppingCartContainer(){
     closeIfOpen(mobileMenu);
     closeIfOpen(desktopMenu);
+    closeIfOpen(productDetailContainer);
     shoppingCartContainer.classList.toggle('inactive');
 
 }
@@ -31,6 +37,17 @@ function closeIfOpen(element){
         element.classList.add('inactive');
     }
 }
+
+function openProductDetailAside(){
+    closeIfOpen(shoppingCartContainer);
+    closeIfOpen(mobileMenu);
+    closeIfOpen(desktopMenu);
+    productDetailContainer.classList.remove('inactive');
+}
+function  closeProductDetailAside(){
+    productDetailContainer.classList.add('inactive');
+}
+
 const productList = []
 
 productList.push ({
@@ -85,6 +102,7 @@ function renderProducts(arr){
         const img = document.createElement('img');
         img.setAttribute('src', product.image);
         const productInfo = document.createElement('div');
+        img.addEventListener('click', openProductDetailAside)
         productInfo.classList.add('product-info');
         const productInfoDiv = document.createElement('div');
         const productPrice = document.createElement('p');
